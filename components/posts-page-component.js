@@ -17,8 +17,18 @@ export function renderPostsPageComponent({ appEl }) {
   const appHtml = posts.map((post) => {
 
     const likesCounter = post.likes.length;
-    const firstLiker = String(post.likes[0]['name']).bold();
-    const moreLikers = String(" еще " + (post.likes.length - 1)).bold();
+    const firstLiker = String(post.likes[0]['name']);
+    const moreLikers = String(" еще " + (post.likes.length - 1));
+
+    const likersApp = (likersElement) => {
+      if (likesCounter > 1) {
+        return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span> и <span></span><span><strong>${moreLikers}</strong></span>`;
+      } else if (likesCounter > 0) {
+        return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span>`;
+      } else {
+        return "";
+      }
+    }
     
     return `
     <div class="page-container">
@@ -38,7 +48,7 @@ export function renderPostsPageComponent({ appEl }) {
               <img style="${post.isLiked === true ? "display: block" : "display: none"}" src="./assets/images/like-active.svg">
             </button>
             <p class="post-likes-text">
-              Нравится: ${likesCounter > 1 ? `${firstLiker}` + ` и` + `${moreLikers}` : `${firstLiker}`}
+              ${likersApp()}
             </p>
           </div>
           <p class="post-text">
