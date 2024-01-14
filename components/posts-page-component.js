@@ -10,17 +10,27 @@ export function renderPostsPageComponent({ appEl }) {
   const appHtml = posts.map((post, index) => {
 
     const likesCounter = post.likes.length;
-    const firstLiker = String(post.likes[0]['name']);
+    let firstLiker = null;
     const moreLikers = String(" еще " + (post.likes.length - 1));
 
     const likersRenderApp = (likersElement) => {
-      if (likesCounter > 1) {
-        return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span> и <span></span><span><strong>${moreLikers}</strong></span>`;
-      } else if (likesCounter > 0) {
+      if (likesCounter === 0) {
+        return likersElement = "";
+      } else if (likesCounter === 1) {
+        firstLiker = post.likes[0].name;
         return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span>`;
-      } else {
-        return "";
+      } else if (likesCounter > 1) {
+        firstLiker = post.likes[0].name;
+        return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span> и <span></span><span><strong>${moreLikers}</strong></span>`;
       }
+
+      // if (likesCounter > 1) {
+      //   return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span> и <span></span><span><strong>${moreLikers}</strong></span>`;
+      // } else if (likesCounter > 0) {
+      //   return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span>`;
+      // } else {
+      //   return "";
+      // }
     };
 
     const createdTimeToNow = formatDistanceToNow(new Date(post.createdAt), {locale: ru});
@@ -86,14 +96,14 @@ export function renderPostsPageComponent({ appEl }) {
         posts[index].likes.length += 1;
         posts[index].isLiked = !posts[index].isLiked;
         like({ posts, getToken, index }).then(() => {
-          renderPostsPageComponent({ appEl });
+          return renderPostsPageComponent({ appEl });
         })
 
       } else {
         posts[index].likes.length += -1;
         posts[index].isLiked = !posts[index].isLiked;
         disLike({ posts, getToken, index }).then(() => {
-          renderPostsPageComponent({ appEl });
+          return renderPostsPageComponent({ appEl });
         })
       }
        
