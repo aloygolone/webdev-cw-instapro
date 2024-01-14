@@ -1,7 +1,10 @@
 // Замени на свой, чтобы получить независимый от других набор данных.
+
+import { getToken } from "./index.js";
+
 // "боевая" версия инстапро лежит в ключе prod
 const personalKey = "prod";
-const baseHost = "https://webdev-hw-api.vercel.app";
+const baseHost = "https://wedev-api.sky.pro";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
 export function getPosts({ token }) {
@@ -66,5 +69,47 @@ export function uploadImage({ file }) {
     body: data,
   }).then((response) => {
     return response.json();
+  });
+}
+
+export function like({ posts, index }) {
+  return fetch(postsHost + `/${posts[index].id}/like`, {
+    method: "POST",
+    body: JSON.stringify(
+      {
+        likes: {id: posts[index].user.id, name: posts[index].user.name,},
+        isLiked: posts.isLiked,        
+      }
+    ),
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    return posts.isLiked = data.post.isLiked;
+  });
+}
+
+export function disLike({ posts, index }) {
+  return fetch(postsHost + `/${posts[index].id}/dislike`, {
+    method: "POST",
+    body: JSON.stringify(
+      {
+        likes: {id: posts[index].user.id, name: posts[index].user.name,},
+        isLiked: posts.isLiked,        
+      }
+    ),
+    headers: {
+      Authorization: getToken(),
+    },
+  })
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    return posts.isLiked = data.post.isLiked;
   });
 }

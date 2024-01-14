@@ -1,27 +1,19 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage } from "../index.js";
+import { posts, goToPage, getToken } from "../index.js";
 import { formatDistanceToNow } from "date-fns";
+import { ru } from "date-fns/locale"
+import { like, disLike } from "../api.js";
 
 export function renderPostsPageComponent({ appEl }) {
-  // TODO: реализовать рендер постов из api
-  console.log("Актуальный список постов:", posts);
-
-  // for (const id of posts.likes) {
-    // id = posts.likes.id;
-  // }
-
-  /**
-   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-   * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-   */
-  const appHtml = posts.map((post) => {
+   
+  const appHtml = posts.map((post, index) => {
 
     const likesCounter = post.likes.length;
     const firstLiker = String(post.likes[0]['name']);
     const moreLikers = String(" еще " + (post.likes.length - 1));
 
-    const likersApp = (likersElement) => {
+    const likersRenderApp = (likersElement) => {
       if (likesCounter > 1) {
         return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span> и <span></span><span><strong>${moreLikers}</strong></span>`;
       } else if (likesCounter > 0) {
@@ -31,7 +23,7 @@ export function renderPostsPageComponent({ appEl }) {
       }
     };
 
-    const createdTimeToNow = formatDistanceToNow(new Date(post.createdAt), {inincludeSeconds: true});
+    const createdTimeToNow = formatDistanceToNow(new Date(post.createdAt), {locale: ru});
     
     return `
     <div class="page-container">
@@ -46,12 +38,12 @@ export function renderPostsPageComponent({ appEl }) {
             <img class="post-image" src="${post.imageUrl}">
           </div>
           <div class="post-likes">
-            <button data-post-id="" class="like-button">
+            <button data-post-id="${index}" class="like-button">
               <img style="${post.isLiked === false ? "display: block" : "display: none"}" src="./assets/images/like-not-active.svg">
               <img style="${post.isLiked === true ? "display: block" : "display: none"}" src="./assets/images/like-active.svg">
             </button>
             <p class="post-likes-text">
-              ${likersApp()}
+              ${likersRenderApp()}
             </p>
           </div>
           <p class="post-text">
@@ -71,6 +63,42 @@ export function renderPostsPageComponent({ appEl }) {
   renderHeaderComponent({
     element: document.querySelector(".header-container"),
   });
+
+  const likeButtons = document.querySelectorAll(".like-button");
+
+  for (let likeButton of likeButtons) {
+
+    if (getToken() === undefined) {
+      return likeButton.disabled = true;
+    } else {
+      likeButton.disabled = false;
+    }
+
+    likeButton.addEventListener("click", () => {
+      const index = likeButton.dataset.postId;
+      console.log(posts[index].isLiked);
+
+      console.log(posts[index].id);
+      console.log(posts[index].user.name);
+      
+
+      if (posts[index].isLiked === false) {
+        posts[index].likes.length += 1;
+        posts[index].isLiked = !posts[index].isLiked;
+        like({ posts, getToken, index }).then(() => {
+          renderPostsPageComponent({ appEl });
+        })
+
+      } else {
+        posts[index].likes.length += -1;
+        posts[index].isLiked = !posts[index].isLiked;
+        disLike({ posts, getToken, index }).then(() => {
+          renderPostsPageComponent({ appEl });
+        })
+      }
+       
+    });
+  }
 
   for (let userEl of document.querySelectorAll(".post-header")) {
     userEl.addEventListener("click", () => {
