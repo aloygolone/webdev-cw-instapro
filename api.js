@@ -28,7 +28,7 @@ export function getPosts({ token }) {
     });
 }
 
-export function getUserPosts({ token, data }) {
+export function getUserPosts({ data, token }) {
   return fetch(postsHost + `/user-posts/${data.userId}`, {
     method: "GET",
     headers: {
@@ -36,10 +36,6 @@ export function getUserPosts({ token, data }) {
     },
   })
   .then((response) => {
-    if (response.status === 401) {
-      throw new Error("Нет авторизации");
-    }
-
     return response.json();
   })
   .then((data) => {
@@ -114,7 +110,7 @@ export function like({ posts, index }) {
     return response.json();
   })
   .then((data) => {
-    return posts.isLiked = data.post.isLiked;
+    return posts = data;
   });
 }
 

@@ -123,11 +123,6 @@ const renderApp = () => {
   if (page === ADD_POSTS_PAGE) {
     return renderAddPostPageComponent({
       appEl,
-      // {
-      //   addPost({ description, imageUrl });
-      //   console.log("Добавляю пост...", { description, imageUrl });
-      //   goToPage(POSTS_PAGE);
-      // },
     });
   }
 
@@ -140,9 +135,9 @@ const renderApp = () => {
 
   if (page === USER_POSTS_PAGE) {
     return renderUserPostsPageComponent({
-      appEl, posts
+      appEl,
     });
   }
 };
-// renderHeaderComponent({ fristTime });
+
 goToPage(POSTS_PAGE);

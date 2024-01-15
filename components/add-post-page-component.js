@@ -50,14 +50,6 @@ export function renderAddPostPageComponent({ appEl }) {
       });
     }
 
-    for (let userEl of document.querySelectorAll(".post-header")) {
-      userEl.addEventListener("click", () => {
-        goToPage(USER_POSTS_PAGE, {
-          userId: userEl.dataset.userId,
-        });
-      });
-    }
-
     document.getElementById("add-button").addEventListener("click", () => {
       const description = document.getElementById("textarea").value;
 
@@ -82,72 +74,6 @@ export function renderAddPostPageComponent({ appEl }) {
       
     });
 
-  //   document.getElementById("add-button").addEventListener("click", () => {
-  //     setError("");
-
-  //     if (isLoginMode) {
-  //       const login = document.getElementById("login-input").value;
-  //       const password = document.getElementById("password-input").value;
-
-  //       if (!login) {
-  //         alert("Введите логин");
-  //         return;
-  //       }
-
-  //       if (!password) {
-  //         alert("Введите пароль");
-  //         return;
-  //       }
-
-  //       loginUser({
-  //         login: login,
-  //         password: password,
-  //       })
-  //         .then((user) => {
-  //           setUser(user.user);
-  //         })
-  //         .catch((error) => {
-  //           console.warn(error);
-  //           setError(error.message);
-  //         });
-  //     } else {
-  //       const login = document.getElementById("login-input").value;
-  //       const name = document.getElementById("name-input").value;
-  //       const password = document.getElementById("password-input").value;
-  //       if (!name) {
-  //         alert("Введите имя");
-  //         return;
-  //       }
-  //       if (!login) {
-  //         alert("Введите логин");
-  //         return;
-  //       }
-
-  //       if (!password) {
-  //         alert("Введите пароль");
-  //         return;
-  //       }
-
-  //       if (!imageUrl) {
-  //         alert("Не выбрана фотография");
-  //         return;
-  //       }
-
-  //       registerUser({
-  //         login: login,
-  //         password: password,
-  //         name: name,
-  //         imageUrl,
-  //       })
-  //         .then((user) => {
-  //           setUser(user.user);
-  //         })
-  //         .catch((error) => {
-  //           console.warn(error);
-  //           setError(error.message);
-  //         });
-  //     }
-  //   });
   };
 
   render();

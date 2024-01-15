@@ -111,7 +111,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
           alert("Введите имя");
           return;
         }
-        if (!login) {messageerro
+        if (!login) {
           alert("Введите логин");
           return;
         }
@@ -127,9 +127,9 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         }
 
         registerUser({
-          login: login,
-          password: password,
-          name: name,
+          login: login.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          password: password.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          name: name.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
           imageUrl,
         })
           .then((user) => {

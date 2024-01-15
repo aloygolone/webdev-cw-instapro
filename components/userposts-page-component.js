@@ -5,7 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
 import { like, disLike } from "../api.js";
 
-export function renderUserPostsPageComponent({ appEl, userId }) {
+export function renderUserPostsPageComponent({ appEl }) {
     
     const appHtml = posts.map((post, index) => {
 
@@ -53,8 +53,8 @@ export function renderUserPostsPageComponent({ appEl, userId }) {
         <div class="page-container">
             <div class="header-container"></div>
             <div class="posts-user-header">
-                <img src="${userId.imageUrl}" class="posts-user-header__user-image">
-                <p class="posts-user-header__user-name">${userId.id}</p>
+                <img src="${posts[0].user.imageUrl}" class="posts-user-header__user-image">
+                <p class="posts-user-header__user-name">${posts[0].user.name}</p>
             </div>
             ${appHtml}
         </div>`;
@@ -83,14 +83,14 @@ export function renderUserPostsPageComponent({ appEl, userId }) {
                 posts[index].likes.length += 1;
                 posts[index].isLiked = !posts[index].isLiked;
                 like({ posts, getToken, index }).then(() => {
-                return renderPostsPageComponent({ appEl });
+                return renderUserPostsPageComponent({ appEl });
                 })
 
             } else {
                 posts[index].likes.length += -1;
                 posts[index].isLiked = !posts[index].isLiked;
                 disLike({ posts, getToken, index }).then(() => {
-                return renderPostsPageComponent({ appEl });
+                return renderUserPostsPageComponent({ appEl });
                 })
             }
         

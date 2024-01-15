@@ -27,14 +27,6 @@ export function renderPostsPageComponent({ appEl }) {
           return `Нравится: <span><strong>${firstLiker}</strong></span> и <span></span><span><strong>${moreLikers}</strong></span>`;
       }
 
-
-      // if (likesCounter > 1) {
-      //   return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span> и <span></span><span><strong>${moreLikers}</strong></span>`;
-      // } else if (likesCounter > 0) {
-      //   return likersElement = `Нравится: <span><strong>${firstLiker}</strong></span>`;
-      // } else {
-      //   return "";
-      // }
     };
 
     const createdTimeToNow = formatDistanceToNow(new Date(post.createdAt), {locale: ru});
@@ -99,8 +91,6 @@ export function renderPostsPageComponent({ appEl }) {
         posts[index].likes.length += 1;
         posts[index].isLiked = !posts[index].isLiked;
         like({ posts, getToken, index }).then(() => {
-        //   getPosts({ token });
-        // }).then(() => {
           return renderPostsPageComponent({ appEl })
         })
 
@@ -108,8 +98,6 @@ export function renderPostsPageComponent({ appEl }) {
         posts[index].likes.length += -1;
         posts[index].isLiked = !posts[index].isLiked;
         disLike({ posts, getToken, index }).then(() => {
-        //   getPosts({ token });
-        // }).then(() => {
           return renderPostsPageComponent({ appEl })
         })
       }
