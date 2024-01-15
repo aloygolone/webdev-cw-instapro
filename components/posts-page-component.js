@@ -84,13 +84,10 @@ export function renderPostsPageComponent({ appEl }) {
       likeButton.disabled = false;
     }
 
-    likeButton.addEventListener("click", () => {
-      const index = likeButton.dataset.postId;
-      console.log(posts[index].isLiked);
+    // Форма логина - перерисовываем только кусок разметки (не целиком) - попробовать реализовать
 
-      console.log(posts[index].id);
-      console.log(posts[index].user.name);
-      
+    likeButton.addEventListener("click", () => {
+      const index = likeButton.dataset.postId;   
 
       if (posts[index].isLiked === false) {
         posts[index].likes.length += 1;

@@ -93,8 +93,8 @@ export function renderAuthPageComponent({ appEl, setUser }) {
         }
 
         loginUser({
-          login: login,
-          password: password,
+          login: login.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+          password: password.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         })
           .then((user) => {
             setUser(user.user);
@@ -111,7 +111,7 @@ export function renderAuthPageComponent({ appEl, setUser }) {
           alert("Введите имя");
           return;
         }
-        if (!login) {
+        if (!login) {messageerro
           alert("Введите логин");
           return;
         }

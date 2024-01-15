@@ -7,6 +7,8 @@ const personalKey = "prod";
 const baseHost = "https://wedev-api.sky.pro";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
+// получаем список постов с сервера
+
 export function getPosts({ token }) {
   return fetch(postsHost, {
     method: "GET",
@@ -27,6 +29,8 @@ export function getPosts({ token }) {
 }
 
 // https://github.com/GlebkaF/webdev-hw-api/blob/main/pages/api/user/README.md#%D0%B0%D0%B2%D1%82%D0%BE%D1%80%D0%B8%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%D1%81%D1%8F
+
+// регистрируем нового юзера
 export function registerUser({ login, password, name, imageUrl }) {
   return fetch(baseHost + "/api/user", {
     method: "POST",
@@ -43,7 +47,7 @@ export function registerUser({ login, password, name, imageUrl }) {
     return response.json();
   });
 }
-
+// логинимся на сервере
 export function loginUser({ login, password }) {
   return fetch(baseHost + "/api/user/login", {
     method: "POST",
@@ -72,6 +76,8 @@ export function uploadImage({ file }) {
   });
 }
 
+// записываем лайк на сервер и получаем данные
+
 export function like({ posts, index }) {
   return fetch(postsHost + `/${posts[index].id}/like`, {
     method: "POST",
@@ -93,6 +99,8 @@ export function like({ posts, index }) {
   });
 }
 
+// записываем снятие лайка и получаем данные
+
 export function disLike({ posts, index }) {
   return fetch(postsHost + `/${posts[index].id}/dislike`, {
     method: "POST",
@@ -112,4 +120,22 @@ export function disLike({ posts, index }) {
   .then((data) => {
     return posts.isLiked = data.post.isLiked;
   });
+}
+
+// добавляем пост на сервер
+
+export function addPost({ discription, imageUrl }) {
+  console.log(discription, imageUrl)
+  return fetch(postsHost, {
+    method: "POST",
+    body: JSON.stringify(
+      {
+        discription,
+        imageUrl,
+      }
+    ),
+    headers: {
+      Authorization: getToken(),
+    },
+  })
 }
