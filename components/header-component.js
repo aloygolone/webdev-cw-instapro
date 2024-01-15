@@ -1,7 +1,8 @@
 import { goToPage, logout, user } from "../index.js";
 import { ADD_POSTS_PAGE, AUTH_PAGE, POSTS_PAGE } from "../routes.js";
 
-export function renderHeaderComponent({ element }) {
+export function renderHeaderComponent({ element, fristTime }) {
+
   element.innerHTML = `
   <div class="page-header">
       <h1 class="logo">instapro</h1>
@@ -20,6 +21,8 @@ export function renderHeaderComponent({ element }) {
   </div>
   
 `;
+      
+  fristTime = element.innerHTML
 
   element
     .querySelector(".add-or-login-button")
