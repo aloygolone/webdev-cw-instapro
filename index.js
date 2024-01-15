@@ -1,4 +1,4 @@
-import { addPost, getPosts, getUserPosts } from "./api.js";
+import { getPosts, getUserPosts } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -15,7 +15,6 @@ import {
   removeUserFromLocalStorage,
   saveUserToLocalStorage,
 } from "./helpers.js";
-import { renderHeaderComponent } from "./components/header-component.js";
 import { renderUserPostsPageComponent } from "./components/userposts-page-component.js";
 
 export let user = getUserFromLocalStorage();

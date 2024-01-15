@@ -4,7 +4,6 @@ import { posts, goToPage, getToken } from "../index.js";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
 import { like, disLike } from "../api.js";
-import { getPosts } from "../api.js";
 
 export function renderPostsPageComponent({ appEl }) {
    
