@@ -1,4 +1,6 @@
 import { addPost } from "../api.js";
+import { goToPage } from "../index.js";
+import { POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js"
 
@@ -57,24 +59,26 @@ export function renderAddPostPageComponent({ appEl }) {
     }
 
     document.getElementById("add-button").addEventListener("click", () => {
-      const discription = document.getElementById("textarea").value;
+      const description = document.getElementById("textarea").value;
 
       if (!imageUrl) {
         alert("Не выбрана фотография");
         return;
       }
 
-      if (!discription) {
+      if (!description) {
         alert("Нужно добавить описание")
         return;
       }
 
-      console.log(discription, imageUrl)
+      console.log(description, imageUrl)
 
       addPost({
-        discription: discription.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
+        description: description.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         imageUrl: imageUrl,
       })
+
+      goToPage(POSTS_PAGE);
       
     });
 
