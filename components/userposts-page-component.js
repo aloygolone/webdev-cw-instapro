@@ -67,15 +67,13 @@ export function renderUserPostsPageComponent({ appEl }) {
 
     for (let likeButton of likeButtons) {
 
-        if (getToken() === undefined) {
-        return likeButton.disabled = true;
-        } else {
-        likeButton.disabled = false;
-        }
-
-        // Форма логина - перерисовываем только кусок разметки (не целиком) - попробовать реализовать
-
         likeButton.addEventListener("click", () => {
+
+            if (getToken() === undefined) {
+                return likeButton.disabled = true;
+            } else {
+                likeButton.disabled = false;
+            }
             const index = likeButton.dataset.postId;   
 
             if (posts[index].isLiked === false) {

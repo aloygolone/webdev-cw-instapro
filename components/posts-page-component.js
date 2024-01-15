@@ -75,15 +75,17 @@ export function renderPostsPageComponent({ appEl }) {
 
   for (let likeButton of likeButtons) {
 
-    if (getToken() === undefined) {
-      return likeButton.disabled = true;
-    } else {
-      likeButton.disabled = false;
-    }
 
     // Форма логина - перерисовываем только кусок разметки (не целиком) - попробовать реализовать
 
     likeButton.addEventListener("click", () => {
+
+      if (getToken() === undefined) {
+        return likeButton.disabled = true;
+      } else {
+        likeButton.disabled = false;
+      }
+      
       const index = likeButton.dataset.postId;   
 
       if (posts[index].isLiked === false) {
@@ -105,7 +107,9 @@ export function renderPostsPageComponent({ appEl }) {
   }
 
   for (let userEl of document.querySelectorAll(".post-header")) {
+    userEl.disabled = false;
     userEl.addEventListener("click", () => {
+      
       console.log(userEl.dataset.userId)
       goToPage(USER_POSTS_PAGE, {
         userId: userEl.dataset.userId,
