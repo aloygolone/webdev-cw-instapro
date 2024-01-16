@@ -89,16 +89,19 @@ export function renderPostsPageComponent({ appEl }) {
       const index = likeButton.dataset.postId;   
 
       if (posts[index].isLiked === false) {
+        
         posts[index].likes.length += 1;
         posts[index].isLiked = !posts[index].isLiked;
-        like({ posts, getToken, index }).then(() => {
+        like({ posts, getToken, index }).then((data) => {
+          posts[index].likes = data.post.likes;
           return renderPostsPageComponent({ appEl })
         })
 
       } else {
         posts[index].likes.length += -1;
         posts[index].isLiked = !posts[index].isLiked;
-        disLike({ posts, getToken, index }).then(() => {
+        disLike({ posts, getToken, index }).then((data) => {
+          posts[index].likes = data.post.likes;
           return renderPostsPageComponent({ appEl })
         })
       }

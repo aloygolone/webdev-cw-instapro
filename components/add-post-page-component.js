@@ -70,9 +70,10 @@ export function renderAddPostPageComponent({ appEl }) {
         imageUrl: imageUrl,
       })
       
+
+      goToPage(POSTS_PAGE);
     });
 
-    goToPage(POSTS_PAGE);
   };
 
   render();

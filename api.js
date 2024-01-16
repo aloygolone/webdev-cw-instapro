@@ -109,9 +109,8 @@ export function like({ posts, index }) {
   .then((response) => {
     return response.json();
   })
-  .then((data) => {
-    return posts = data;
-  });
+
+  
 }
 
 // записываем снятие лайка и получаем данные
@@ -132,9 +131,6 @@ export function disLike({ posts, index }) {
   .then((response) => {
     return response.json();
   })
-  .then((data) => {
-    return posts.isLiked = data.post.isLiked;
-  });
 }
 
 // добавляем пост на сервер
