@@ -69,9 +69,9 @@ export function renderAddPostPageComponent({ appEl }) {
         description: description.replaceAll("<", "&lt;").replaceAll(">", "&gt;"),
         imageUrl: imageUrl,
       })
+      
 
       goToPage(POSTS_PAGE);
-      
     });
 
   };

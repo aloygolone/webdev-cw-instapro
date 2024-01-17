@@ -122,6 +122,7 @@ const renderApp = () => {
   if (page === ADD_POSTS_PAGE) {
     return renderAddPostPageComponent({
       appEl,
+      goToPage,
     });
   }
 
